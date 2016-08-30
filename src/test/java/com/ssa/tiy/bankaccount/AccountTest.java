@@ -8,6 +8,7 @@ import org.junit.Test;
 public class AccountTest {
 
 	Account account = new Account();
+	
 	Savings savings = new Savings();
 	
 	
@@ -34,9 +35,12 @@ public class AccountTest {
 	
 
 	//Test for deposit method 
+	assertEquals(200, account.getBalance(),0);
 	
 	assertEquals("deposit",300, account.deposit(100),0);
 	assertEquals("deposit",0, account.deposit(-100),0);
+	
+	assertEquals(300, account.getBalance(),0);
 	
 	
     }
@@ -45,9 +49,13 @@ public class AccountTest {
     @Test
     public void testWithdrwal() {
 
-	//Test for withdraw method	
+	//Test for withdraw method
 	
+	assertEquals(200, account.getBalance(),0);
 	assertEquals("withdraw",100, account.withdraw(100),0);
+	assertEquals("withdraw",0, account.withdraw(100),0);
+	assertEquals(0, account.getBalance(),0);
+	
 	assertEquals("withdraw",0, account.withdraw(100),0);	
 	
     }
@@ -62,7 +70,15 @@ public class AccountTest {
     @Test
     public void testTransfer() {
 	
-	assertEquals(100, new Account().transferFrom(account, 100),0);	
+	assertEquals(200, account.getBalance(),0);
+	assertEquals(5100, savings.transferFrom(account, 100),0);	
+	
+	assertEquals(100,account.getBalance(),0);
+	assertEquals(5100,savings.getBalance(),0);
+	
+	assertEquals(5200, account.transferFrom(savings, 5100),0);
+	assertEquals(0, savings.getBalance(),0);
+	
 	
     }
     
